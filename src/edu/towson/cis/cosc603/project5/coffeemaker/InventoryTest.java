@@ -122,6 +122,10 @@ public class InventoryTest {
 	@Test
 	public void testEnoughIngredientsEnough() {
 		Recipe r = new Recipe();
+		r.setAmtChocolate(15);
+		r.setAmtCoffee(15);
+		r.setAmtMilk(15);
+		r.setAmtSugar(15);
 		
 		assertTrue(i.enoughIngredients(r));
 		

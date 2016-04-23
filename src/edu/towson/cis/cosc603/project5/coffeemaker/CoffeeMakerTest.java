@@ -24,7 +24,7 @@ public class CoffeeMakerTest extends TestCase {
 		r1.setAmtCoffee(6);
 		r1.setAmtMilk(1);
 		r1.setAmtSugar(1);
-		r1.setAmtChocolate(0);
+		r1.setAmtChocolate(1);
 	}
 
 	/**
@@ -69,6 +69,14 @@ public class CoffeeMakerTest extends TestCase {
 	}
 	
 	/**
+	 * Test adding inventory with zero case
+	 */
+	@Test
+	public void testaddInventory2(){
+		assertTrue(cm.addInventory(0, 0, 0, 0));
+	}
+	
+	/**
 	 * Test checking the inventory
 	 */
 	@Test
@@ -85,6 +93,11 @@ public class CoffeeMakerTest extends TestCase {
 	@Test
 	public void testPurchaseBeverage1(){
 		assertEquals(cm.makeCoffee(r1, 60),10);
+		
+		assertTrue(cm.checkInventory().getChocolate() == 14 &&
+				cm.checkInventory().getCoffee() == 9 &&
+				cm.checkInventory().getMilk() == 14 &&
+				cm.checkInventory().getSugar() == 14);
 	}
 	
 	/**
