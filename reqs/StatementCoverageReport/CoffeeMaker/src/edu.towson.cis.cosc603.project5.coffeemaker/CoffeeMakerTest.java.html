@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>CoffeeMakerTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CoffeeMaker (Apr 22, 2016 10:52:56 PM)</a> &gt; <a href="../../index.html" class="el_group">CoffeeMaker</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc603.project5.coffeemaker</a> &gt; <span class="el_source">CoffeeMakerTest.java</span></div><h1>CoffeeMakerTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc603.project5.coffeemaker;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+/**
+ *
+ */
+<span class="fc" id="L11">public class CoffeeMakerTest extends TestCase {</span>
+	private CoffeeMaker cm;
+	private Inventory i;
+	private Recipe r1;
+
+	@Before
+	public void setUp() {
+<span class="fc" id="L18">		cm = new CoffeeMaker();</span>
+<span class="fc" id="L19">		i = cm.checkInventory();</span>
+
+<span class="fc" id="L21">		r1 = new Recipe();</span>
+<span class="fc" id="L22">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="fc" id="L23">		r1.setPrice(50);</span>
+<span class="fc" id="L24">		r1.setAmtCoffee(6);</span>
+<span class="fc" id="L25">		r1.setAmtMilk(1);</span>
+<span class="fc" id="L26">		r1.setAmtSugar(1);</span>
+<span class="fc" id="L27">		r1.setAmtChocolate(0);</span>
+<span class="fc" id="L28">	}</span>
+
+	/**
+	 * Test adding r1
+	 */
+	@Test
+	public void testAddRecipe1() {
+<span class="fc" id="L35">		assertTrue(cm.addRecipe(r1));</span>
+<span class="fc" id="L36">	}</span>
+
+	/**
+	 * Test deleting r1
+	 */
+	@Test
+	public void testDeleteRecipe1() {
+<span class="fc" id="L43">		cm.addRecipe(r1);</span>
+<span class="fc" id="L44">		assertTrue(cm.deleteRecipe(r1));</span>
+<span class="fc" id="L45">	}</span>
+
+	/**
+	 * Test editing r1
+	 */
+	@Test
+	public void testEditRecipe1() {
+<span class="fc" id="L52">		cm.addRecipe(r1);</span>
+<span class="fc" id="L53">		Recipe newRecipe = new Recipe();</span>
+<span class="fc" id="L54">		newRecipe = r1;</span>
+<span class="fc" id="L55">		newRecipe.setAmtSugar(2);</span>
+<span class="fc" id="L56">		assertTrue(cm.editRecipe(r1, newRecipe));</span>
+<span class="fc" id="L57">	}</span>
+	
+	/**
+	 * Test adding inventory
+	 */
+	@Test
+	public void testaddInventory1(){
+<span class="fc" id="L64">		cm.addInventory(5, 5, 5, 5);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">		assertTrue(cm.checkInventory().getChocolate() == 20 &amp;&amp;</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">				cm.checkInventory().getCoffee() == 20 &amp;&amp;</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">				cm.checkInventory().getMilk() == 20 &amp;&amp;</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">				cm.checkInventory().getSugar() == 20);</span>
+<span class="fc" id="L69">	}</span>
+	
+	/**
+	 * Test checking the inventory
+	 */
+	@Test
+	public void testCheckInventory1(){
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">		assertTrue(cm.checkInventory().getChocolate() == 15 &amp;&amp;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">				cm.checkInventory().getCoffee() == 15 &amp;&amp;</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">				cm.checkInventory().getMilk() == 15 &amp;&amp;</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">				cm.checkInventory().getSugar() == 15);</span>
+<span class="fc" id="L80">	}</span>
+	
+	/**
+	 * Test purchasing a beverage successfully
+	 */
+	@Test
+	public void testPurchaseBeverage1(){
+<span class="fc" id="L87">		assertEquals(cm.makeCoffee(r1, 60),10);</span>
+<span class="fc" id="L88">	}</span>
+	
+	/**
+	 * Test purchasing a beverage without enough ingredients
+	 */
+	@Test
+	public void testPurchaseBeverage2(){
+<span class="fc" id="L95">		cm.makeCoffee(r1, 50);</span>
+<span class="fc" id="L96">		cm.makeCoffee(r1, 50);</span>
+<span class="fc" id="L97">		assertEquals(cm.makeCoffee(r1, 60),60);</span>
+<span class="fc" id="L98">	}</span>
+	
+	/**
+	 * Test purchasing a beverage without enough money
+	 */
+	@Test
+	public void testPurchaseBeverage3(){
+<span class="fc" id="L105">		assertEquals(cm.makeCoffee(r1, 40),40);</span>
+<span class="fc" id="L106">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>CoffeeMaker (Apr 22, 2016 10:52:56 PM)</div></body></html>
