@@ -117,4 +117,19 @@ public class CoffeeMakerTest extends TestCase {
 	public void testPurchaseBeverage3(){
 		assertEquals(cm.makeCoffee(r1, 40),40);
 	}
+	/**
+	 * Test recipe for name
+	 */
+	@Test
+	public void testGetRecipeForName() {
+		cm.addRecipe(r1);
+		assertNotNull(r1.toString());
+		assertNotNull(r1.getName());
+		assertSame(r1, cm.getRecipeForName("Coffee"));
+	}
+	
+	public void testGetRecipe() {
+		assertNotNull(cm.getRecipes());
+	}
+	
 }
